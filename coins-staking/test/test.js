@@ -1,37 +1,20 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
+describe("Staking coins", function (){
+    it("balance of pool is 500", async () => {
+        const owner = await ethers.getSigners();
 
-describe("Bonance,mETH and IFO", function () {
-  it("should create token and mint tokesn", async () => {
-        const [owner] = await ethers.getSigners();
-
-        const MainETH = await ethers.getContractFactory("MainEthereum");
+        const MainETH = await ethers.getContractFactory("MainETH");
         const mainETH = await MainETH.deploy();
+      
+        const Recievers = await ethers.getContractFactory("Recievers");
+        const recievers = await Recievers.deploy(mainETH.address);
+      
+        await recievers.deployed();
 
-        const Bonance = await ethers.getContractFactory("Bonance");
-        const bonance = await Bonance.deploy();
+        await recievers.connect(owner).depositTokens(500);
 
-        await bonance.deployed();
-        const balanceETH = await mainETH.balanceOf(owner.address);
-        const balanceBNC = await bonance.balanceOf(owner.address);
-
-        expect(await bonance.totalSupply()).to.equal(balanceBNC)
-        expect(await mainETH.totalSupply()).to.equal(balanceETH)
-    });
-})
-
-
-describe("bDEX", function (){
-    it("should deploy dex and send token to smart contract", async () => {
-        const [owner] = await ethers.getSigners();
-        
-        const MainETH = await ethers.getContractFactory("MainEthereum");
-        const mainETH = await MainETH.deploy();
-
-        const Bonance = await ethers.getContractFactory("Bonance");
-        const bonance = await Bonance.deploy();
-
-        
+        expect(await mainETH.balanceOf(recievers.address)).to.equal(500)
     })
 })

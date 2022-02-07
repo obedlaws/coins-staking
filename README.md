@@ -2,6 +2,8 @@
 
 In this project i was testing openzeppeling contracts for ERC20 deployment and also created an Staking smart contract to distribute the token instead of selling it into a DEX. The smart contract has all the available token to destribute it to people that wants to stake their tokens into it.
 
+*IF YOU WANT TO USE OR TEST THE SMART CONTRACT REMEMBER TO CHANGE HARDHAT CONFIG FILE AND ADD YOU API OR WAY TO CONNEC TO THE BLOCKCHAIN.
+
 
 ## Tech used
 Typescript, Solidity, etherjs, chai(for testing) and hardhat.

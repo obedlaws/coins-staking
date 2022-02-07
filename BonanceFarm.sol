@@ -1,10 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./Bonance.sol";
-import "./MainETH.sol";
+
 
 contract BonanceFarm is IERC20 {
 
@@ -14,7 +11,7 @@ contract BonanceFarm is IERC20 {
     address owner;
     
     
-
+S
     address[] public Stakers;
     mapping(address => uint) public stakingBalance;
     mapping(address => bool) public Staked;
@@ -61,6 +58,6 @@ contract BonanceFarm is IERC20 {
             }
         }
     }
-
+    
 
 }

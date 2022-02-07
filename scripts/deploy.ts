@@ -1,29 +1,29 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// When running the script with `npx hardhat run <script>` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
+
 import { ethers } from "hardhat";
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
 
-  // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  //1. Simply deploying contract.
+  const MainEthereum = await ethers.getContractFactory("MainETH");
+  const mainEthereum = await MainEthereum.deploy();
+    
+  const Bonance = await ethers.getContractFactory("Bonance");
+  const bonance = await Bonance.deploy();
+    
+  const BonanceFarm = await ethers.getContractFactory("BonanceFarm");
+  const bonanceFarm = await BonanceFarm.deploy(mainEthereum.address, bonance.address);
+  
 
-  await greeter.deployed();
+  //2. Setup approving contract to use tokens and total supply of Bonance to Farm Contract.
+  await mainEthereum.approve(bonanceFarm.address, "21000000000000000000000000");
+  await bonance.approve(bonanceFarm.address, "21000000000000000000000000");
+  await bonance.transfer(bonanceFarm.address, "21000000000000000000000000")
 
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("mETH deployed at:", mainEthereum.address);
+  console.log("Bonance deployed at:", bonance.address);
+  console.log("Bonance Farm deployed at:", bonanceFarm.address);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

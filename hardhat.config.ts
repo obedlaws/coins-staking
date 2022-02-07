@@ -26,7 +26,7 @@ const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
     forking: {
-      url: "https://mainnet.infura.io/v3/<your api>"
+      url: "https://<your provider>/<?>/<your api>"
     }
     }
   };
